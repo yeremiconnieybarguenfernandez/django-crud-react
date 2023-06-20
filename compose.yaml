@@ -1,0 +1,24 @@
+name: react-django-postgres
+services:
+  frontend:
+    build:
+      context: frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/code/src
+    depends_on:
+      - backend
+  backend:
+    build:
+      context: backend
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=djangodbcrud
+      - POSTGRES_USER=djangocruduser
+      - POSTGRES_PASSWORD=djangocrudpassword
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
